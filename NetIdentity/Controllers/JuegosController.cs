@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace NetIdentity.Controllers
 {
-    
     public class JuegosController : Controller
     {
         [Authorize(Policy = "menoresEdad")]
@@ -24,5 +23,4 @@ namespace NetIdentity.Controllers
             return View();
         }
     }
-
 }

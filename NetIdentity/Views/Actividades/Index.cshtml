@@ -1,5 +1,18 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using NetIdentity.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject IAuthorizationService AuthorizationService
+
+@{
     ViewData["Title"] = "Actividades";
+    var user = await UserManager.GetUserAsync(User);
+    var roles = user != null ? await UserManager.GetRolesAsync(user) : new List<string>();
+    var isAdmin = roles.Contains("Admin");
+    var claims = user != null ? await UserManager.GetClaimsAsync(user) : new List<System.Security.Claims.Claim>();
+    var generoClaim = claims.FirstOrDefault(c => c.Type == "Genero");
+    var genero = generoClaim?.Value ?? "Desconocido";
 }
 
 <div class="container">
@@ -7,11 +20,24 @@
         <div class="col-12">
             <h1 class="display-4">📚 Centro de Actividades</h1>
             <p class="lead">Explora actividades divertidas y educativas</p>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div class="alert alert-info">
+                    <p>Bienvenido(a) @user.NombreCompleto - Has iniciado sesión como: <strong>@genero</strong></p>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning">
+                    <p>Inicia sesión para acceder a actividades personalizadas</p>
+                </div>
+            }
         </div>
     </div>
 
     <div class="row g-4">
-        <div class="col-md-4">
+        
+        <div class="col-md-4 mb-4">
             <div class="card h-100 border-primary shadow">
                 <div class="card-header bg-primary text-white">
                     <h4>⚽ Deportes</h4>
@@ -25,12 +51,23 @@
                     </ul>
                 </div>
                 <div class="card-footer">
-                    <a asp-action="Deportes" class="btn btn-primary w-100">Ver Deportes</a>
+                    @{
+                        var authResult = await AuthorizationService.AuthorizeAsync(User, "menoresEdad");
+                    }
+                    @if (SignInManager.IsSignedIn(User) && authResult.Succeeded)
+                    {
+                        <a asp-action="Deportes" class="btn btn-primary w-100">Ver Deportes</a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary w-100" disabled title="Solo para menores de edad">Ver Deportes</button>
+                        <small class="text-muted d-block mt-1 text-center">Acceso solo para menores de edad</small>
+                    }
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mb-4">
             <div class="card h-100 border-success shadow">
                 <div class="card-header bg-success text-white">
                     <h4>📝 Tareas</h4>
@@ -44,14 +81,112 @@
                     </ul>
                 </div>
                 <div class="card-footer">
-                    <a asp-action="Tareas" class="btn btn-success w-100">Gestionar Tareas</a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-action="Tareas" class="btn btn-success w-100">Gestionar Tareas</a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-success w-100" disabled title="Inicia sesión para acceder">Gestionar Tareas</button>
+                        <small class="text-muted d-block mt-1 text-center">Inicia sesión para acceder</small>
+                    }
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mb-4">
             <div class="card h-100 border-info shadow">
                 <div class="card-header bg-info text-white">
+                    <h4>🏋️‍♂️ Actividades Masculinas</h4>
+                </div>
+                <div class="card-body">
+                    <p>Actividades específicas para usuarios masculinos</p>
+                    <ul class="list-unstyled">
+                        <li>🏋️ Entrenamiento de fuerza</li>
+                        <li>🏀 Deportes de equipo</li>
+                        <li>🏆 Competencias</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    @{
+                        var authResultMasculino = await AuthorizationService.AuthorizeAsync(User, "GeneroMasculino");
+                    }
+                    @if (SignInManager.IsSignedIn(User) && authResultMasculino.Succeeded)
+                    {
+                        <a asp-action="ActividadesMasculinas" class="btn btn-info w-100">Acceder</a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-info w-100" disabled title="Solo para usuarios masculinos">Acceder</button>
+                        <small class="text-muted d-block mt-1 text-center">Acceso solo para usuarios masculinos</small>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-danger shadow">
+                <div class="card-header bg-danger text-white">
+                    <h4>🧘‍♀️ Actividades Femeninas</h4>
+                </div>
+                <div class="card-body">
+                    <p>Actividades específicas para usuarias femeninas</p>
+                    <ul class="list-unstyled">
+                        <li>🧘‍♀️ Yoga y Pilates</li>
+                        <li>🎨 Artesanía creativa</li>
+                        <li>💪 Fitness funcional</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    @{
+                        var authResultFemenino = await AuthorizationService.AuthorizeAsync(User, "GeneroFemenino");
+                    }
+                    @if (SignInManager.IsSignedIn(User) && authResultFemenino.Succeeded)
+                    {
+                        <a asp-action="ActividadesFemeninas" class="btn btn-danger w-100">Acceder</a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-danger w-100" disabled title="Solo para usuarias femeninas">Acceder</button>
+                        <small class="text-muted d-block mt-1 text-center">Acceso solo para usuarias femeninas</small>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-dark shadow">
+                <div class="card-header bg-dark text-white">
+                    <h4>⚙️ Panel de Administración</h4>
+                </div>
+                <div class="card-body">
+                    <p>Acceso completo a las herramientas de administración</p>
+                    <ul class="list-unstyled">
+                        <li>👥 Gestión de usuarios</li>
+                        <li>📊 Estadísticas</li>
+                        <li>⚙️ Configuración</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    @{
+                        var authResultOtro = await AuthorizationService.AuthorizeAsync(User, "GeneroOtro");
+                    }
+                    @if (SignInManager.IsSignedIn(User) && isAdmin && authResultOtro.Succeeded)
+                    {
+                        <a asp-action="ActividadesAdmin" class="btn btn-dark w-100">Administrar</a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-dark w-100" disabled title="Solo para administradores">Administrar</button>
+                        <small class="text-muted d-block mt-1 text-center">Acceso solo para administradores</small>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-warning shadow">
+                <div class="card-header bg-warning text-dark">
                     <h4>🎨 Arte y Creatividad</h4>
                 </div>
                 <div class="card-body">
@@ -63,7 +198,7 @@
                     </ul>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-info w-100">Próximamente</a>
+                    <a href="#" class="btn btn-warning w-100">Próximamente</a>
                 </div>
             </div>
         </div>

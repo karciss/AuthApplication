@@ -1,55 +1,55 @@
 ﻿@{
-    ViewData["Title"] = "Tareas Escolares";
+    ViewData["Title"] = "Actividades Deportivas";
 }
 
 <div class="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a asp-action="Index">Actividades</a></li>
-            <li class="breadcrumb-item active">Tareas</li>
+            <li class="breadcrumb-item active">Deportes</li>
         </ol>
     </nav>
 
     <div class="row">
         <div class="col-12">
-            <h1>📝 Organizador de Tareas</h1>
-            <p class="lead">Mantén tus tareas escolares organizadas</p>
+            <h1>⚽ Actividades Deportivas</h1>
+            <p class="lead">Descubre actividades deportivas y mantente activo</p>
         </div>
     </div>
 
     <div class="row mt-4">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header bg-success text-white">
-                    <h4>Mis Tareas Pendientes</h4>
+                <div class="card-header bg-primary text-white">
+                    <h4>Rutinas de Ejercicio</h4>
                 </div>
                 <div class="card-body">
                     <div class="list-group">
                         <div class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">📐 Matemáticas</h5>
-                                <small class="text-danger">Vence: Mañana</small>
+                                <h5 class="mb-1">🏃 Rutina de Cardio</h5>
+                                <small class="text-primary">Nivel: Principiante</small>
                             </div>
-                            <p class="mb-1">Resolver ejercicios del 1 al 20, página 45</p>
-                            <button class="btn btn-sm btn-success">Marcar como completada</button>
+                            <p class="mb-1">Rutina de 15 minutos para mejorar la resistencia cardiovascular</p>
+                            <button class="btn btn-sm btn-primary">Ver rutina</button>
                         </div>
 
                         <div class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">📖 Lengua</h5>
-                                <small class="text-warning">Vence: Viernes</small>
+                                <h5 class="mb-1">⚽ Entrenamiento de Fútbol</h5>
+                                <small class="text-warning">Nivel: Intermedio</small>
                             </div>
-                            <p class="mb-1">Leer capítulos 3 y 4 del libro</p>
-                            <button class="btn btn-sm btn-success">Marcar como completada</button>
+                            <p class="mb-1">Ejercicios para mejorar el control del balón</p>
+                            <button class="btn btn-sm btn-primary">Ver ejercicios</button>
                         </div>
 
                         <div class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">🔬 Ciencias</h5>
-                                <small class="text-info">Vence: Próxima semana</small>
+                                <h5 class="mb-1">🏀 Básquetbol para principiantes</h5>
+                                <small class="text-info">Nivel: Principiante</small>
                             </div>
-                            <p class="mb-1">Experimento: ciclo del agua</p>
-                            <button class="btn btn-sm btn-success">Marcar como completada</button>
+                            <p class="mb-1">Aprende los fundamentos del baloncesto</p>
+                            <button class="btn btn-sm btn-primary">Ver tutorial</button>
                         </div>
                     </div>
                 </div>
@@ -59,14 +59,24 @@
         <div class="col-md-4">
             <div class="card bg-light">
                 <div class="card-body">
-                    <h5>📊 Progreso Semanal</h5>
-                    <div class="progress mb-3" style="height: 25px;">
-                        <div class="progress-bar bg-success" style="width: 60%">60%</div>
-                    </div>
-                    <p><strong>Tareas completadas:</strong> 6 de 10</p>
+                    <h5>📆 Próximos Eventos</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Torneo de Fútbol
+                            <span class="badge bg-primary rounded-pill">3 días</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Maratón Escolar
+                            <span class="badge bg-primary rounded-pill">2 semanas</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Clase de Natación
+                            <span class="badge bg-primary rounded-pill">1 mes</span>
+                        </li>
+                    </ul>
                     <hr>
-                    <h5>🎯 Próxima Meta</h5>
-                    <p>Completar todas las tareas antes del viernes</p>
+                    <h5>💪 Consejos de Entrenamiento</h5>
+                    <p>Recuerda hidratarte bien antes, durante y después de realizar actividad física.</p>
                 </div>
             </div>
         </div>
