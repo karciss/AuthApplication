@@ -30,7 +30,8 @@ namespace NetIdentity.Data
                     Email = "admin@test.com",
                     FechaNacimiento = DateTime.Now.AddYears(-30),
                     NombreCompleto = "Administrador Sistema",
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    Genero = "Otro"
                 };
 
                 var result = await userManager.CreateAsync(adminUser, "Admin123!");
@@ -50,7 +51,8 @@ namespace NetIdentity.Data
                     Email = "menor@test.com",
                     FechaNacimiento = DateTime.Now.AddYears(-15),
                     NombreCompleto = "Juan Menor",
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    Genero = "Femenino"
                 };
 
                 var result = await userManager.CreateAsync(userMenor, "Menor123!");
@@ -70,7 +72,8 @@ namespace NetIdentity.Data
                     Email = "mayor@test.com",
                     FechaNacimiento = DateTime.Now.AddYears(-25),
                     NombreCompleto = "María Mayor",
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    Genero = "Masculino"
                 };
 
                 var result = await userManager.CreateAsync(userMayor, "Mayor123!");
