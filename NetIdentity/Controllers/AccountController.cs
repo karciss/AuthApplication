@@ -53,14 +53,15 @@ namespace NetIdentity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(string email, string password, DateTime fechaNacimiento, string nombreCompleto)
+        public async Task<IActionResult> Register(string email, string password, DateTime fechaNacimiento, string nombreCompleto, string genero)
         {
             var user = new ApplicationUser
             {
                 UserName = email,
                 Email = email,
                 FechaNacimiento = fechaNacimiento,
-                NombreCompleto = nombreCompleto
+                NombreCompleto = nombreCompleto,
+                Genero = genero ?? "Otro" 
             };
 
             var result = await _userManager.CreateAsync(user, password);
@@ -68,6 +69,9 @@ namespace NetIdentity.Controllers
             {
                 await _userManager.AddClaimAsync(user,
                     new System.Security.Claims.Claim("FechaNacimiento", fechaNacimiento.ToString("yyyy-MM-dd")));
+                
+                await _userManager.AddClaimAsync(user,
+                    new System.Security.Claims.Claim("Genero", genero ?? "Otro"));
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return RedirectToAction("Index", "Home");
