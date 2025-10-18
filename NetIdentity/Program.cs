@@ -63,6 +63,7 @@ builder.Services.AddAuthorization(options =>
 
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<NetIdentity.Services.UserService>();
 
 var app = builder.Build();
 
