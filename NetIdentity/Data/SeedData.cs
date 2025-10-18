@@ -40,6 +40,8 @@ namespace NetIdentity.Data
                     await userManager.AddToRoleAsync(adminUser, "Admin");
                     await userManager.AddClaimAsync(adminUser,
                         new System.Security.Claims.Claim("FechaNacimiento", adminUser.FechaNacimiento.ToString("yyyy-MM-dd")));
+                    await userManager.AddClaimAsync(adminUser,
+                        new System.Security.Claims.Claim("Genero", adminUser.Genero));
                 }
             }
 
@@ -52,7 +54,7 @@ namespace NetIdentity.Data
                     FechaNacimiento = DateTime.Now.AddYears(-15),
                     NombreCompleto = "Juan Menor",
                     EmailConfirmed = true,
-                    Genero = "Femenino"
+                    Genero = "Masculino"  
                 };
 
                 var result = await userManager.CreateAsync(userMenor, "Menor123!");
@@ -61,6 +63,8 @@ namespace NetIdentity.Data
                     await userManager.AddToRoleAsync(userMenor, "Usuario");
                     await userManager.AddClaimAsync(userMenor,
                         new System.Security.Claims.Claim("FechaNacimiento", userMenor.FechaNacimiento.ToString("yyyy-MM-dd")));
+                    await userManager.AddClaimAsync(userMenor,
+                        new System.Security.Claims.Claim("Genero", userMenor.Genero));
                 }
             }
 
@@ -73,7 +77,7 @@ namespace NetIdentity.Data
                     FechaNacimiento = DateTime.Now.AddYears(-25),
                     NombreCompleto = "María Mayor",
                     EmailConfirmed = true,
-                    Genero = "Masculino"
+                    Genero = "Femenino"
                 };
 
                 var result = await userManager.CreateAsync(userMayor, "Mayor123!");
@@ -82,10 +86,10 @@ namespace NetIdentity.Data
                     await userManager.AddToRoleAsync(userMayor, "Usuario");
                     await userManager.AddClaimAsync(userMayor,
                         new System.Security.Claims.Claim("FechaNacimiento", userMayor.FechaNacimiento.ToString("yyyy-MM-dd")));
+                    await userManager.AddClaimAsync(userMayor,
+                        new System.Security.Claims.Claim("Genero", userMayor.Genero));
                 }
             }
         }
     }
-
-
 }
