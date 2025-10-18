@@ -1,0 +1,36 @@
+:root {
+    --primary-color: #ff69b4;  /* Rosa pastel */
+    --secondary-color: #ffb6c1;
+    --accent-color: #db7093;
+    --header-bg: #fff0f5;
+    --footer-bg: #ffd6e7;
+}
+
+body {
+    background-color: #fff5f9;
+}
+
+.navbar {
+    background-color: var(--primary-color) !important;
+}
+
+.card {
+    border-color: var(--primary-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--accent-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-color);
+}
+
+.card-header {
+    background-color: var(--header-bg);
+}
+
+footer {
+    background-color: var(--footer-bg);
+}

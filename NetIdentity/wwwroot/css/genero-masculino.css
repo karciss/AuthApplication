@@ -1,0 +1,36 @@
+:root {
+    --primary-color: #007bff;  /* Azul celeste */
+    --secondary-color: #5eb2fb;
+    --accent-color: #0056b3;
+    --header-bg: #e6f2ff;
+    --footer-bg: #d0e6ff;
+}
+
+body {
+    background-color: #f5f9ff;
+}
+
+.navbar {
+    background-color: var(--primary-color) !important;
+}
+
+.card {
+    border-color: var(--primary-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--accent-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-color);
+}
+
+.card-header {
+    background-color: var(--header-bg);
+}
+
+footer {
+    background-color: var(--footer-bg);
+}
